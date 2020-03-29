@@ -8,8 +8,6 @@ import numpy as np
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-resp = requests.get(f"https://pomber.github.io/covid19/timeseries.json")
-data = json.loads(resp.text)
 
 def flatten_json(y):
     out = {}
@@ -27,6 +25,8 @@ def flatten_json(y):
     flatten(y)
     return out
 
+resp = requests.get(f"https://pomber.github.io/covid19/timeseries.json")
+data = json.loads(resp.text)
 df = pd.DataFrame(columns=['country', 'date', 'confirmed', 'deaths', 'recovered'])
 df_totalCases = pd.DataFrame(columns=['country', 'date', 'confirmed', 'deaths', 'recovered'])
 for key,value in data.items():
@@ -79,5 +79,3 @@ def api_total():
     else:
         return str(df_total.confirmed)
 
-
-app.run()
