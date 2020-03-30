@@ -66,6 +66,18 @@ def data():
 data()
 inter = setInterval(14400, data)
 
+@app.route('/')
+def home():
+    return "<h2>Covid Data API</h2><br>"+ \
+        "<h4>Get all data: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all</a></h4><br>"+ \
+            "<h4>Get all data for specfic country i.e. India: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?country=india'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?country=india</a></h4><br>"+ \
+                "<h4>Get all data for specfic date i.e. 22/3/2020: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?date=22-3'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?date=<i>22-3</i></a></h4><br>"+ \
+                    "<h4>Get last day data for all countries: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday</a></h4><br>"+ \
+                        "<h4>Get last day data for specfic country i.e. India: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday?country=india'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday?country=india</a></h4><br>"+ \
+                            "<h4>Get total confirmed cases till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total</a></h4><br>"+ \
+                                "<h4>Get total recovered cases till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?recovered'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?recovered</a></h4><br>"+ \
+                                    "<h4>Get total deaths till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?deaths'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?deaths</a></h4>"
+
 @app.route('/api/all', methods=['GET'])
 def api_all():
     # Check if a country was provided in the url
