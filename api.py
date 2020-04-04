@@ -1,5 +1,6 @@
 import flask
 from flask import request
+from flask_cors import CORS
 import pandas as pd
 import json
 import requests
@@ -9,6 +10,7 @@ from threading import Timer
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+CORS(app)
 
 class setInterval :
     def __init__(self,interval,action) :
@@ -74,9 +76,7 @@ def home():
                 "<h4>Get all data for specfic date i.e. 22/3/2020: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?date=22-3'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?date=<i>22-3</i></a></h4><br>"+ \
                     "<h4>Get last day data for all countries: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday</a></h4><br>"+ \
                         "<h4>Get last day data for specfic country i.e. India: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday?country=india'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday?country=india</a></h4><br>"+ \
-                            "<h4>Get total confirmed cases till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total</a></h4><br>"+ \
-                                "<h4>Get total recovered cases till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?recovered'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?recovered</a></h4><br>"+ \
-                                    "<h4>Get total deaths till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?deaths'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total?deaths</a></h4>"
+                            "<h4>Get total cases till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total</a></h4><br>"
 
 @app.route('/api/all', methods=['GET'])
 def api_all():
@@ -85,14 +85,14 @@ def api_all():
         country = str(request.args['country'])
         df_country = df.where(df['country']==country.lower())
         df_country.dropna(axis = 0, how ='all',inplace=True)
-        return df_country.to_json(orient='index')
+        return df_country.to_json(orient='records')
     elif 'date' in request.args:                # Date in ?date=dd-mm
         date = str(request.args['date'])
         df_date = df.where(df['date']=='2020-{}-{}'.format(date.split("-")[1],date.split("-")[0]))
         df_date.dropna(axis = 0, how ='all',inplace=True)
-        return df_date.to_json(orient='index')
+        return df_date.to_json(orient='records')
     else:
-        return df.to_json(orient='index')
+        return df.to_json(orient='records')
 
 
 @app.route('/api/lastday', methods=['GET'])
@@ -101,21 +101,14 @@ def api_lastday():
         country = str(request.args['country'])
         df_totalCountry = df_totalCases.where(df_totalCases['country']==country.lower())
         df_totalCountry.dropna(axis = 0, how ='all',inplace=True)
-        return df_totalCountry.to_json(orient='index')
+        return df_totalCountry.to_json(orient='records')
     else:
-        return df_totalCases.to_json(orient='index')
+        return df_totalCases.to_json(orient='records')
 
 @app.route('/api/total', methods=['GET'])
 def api_total():
-    df_total = df_totalCases.sum()
-    if 'confirmed' in request.args:
-        return str(df_total.confirmed)
-    elif 'deaths' in request.args:
-        return str(df_total.deaths)
-    elif 'recovered' in request.args:
-        return str(df_total.recovered)
-    else:
-        return str(df_total.confirmed)
+    df_total = df_totalCases[['confirmed','recovered','deaths']].sum()
+    return df_total.to_json(orient='index')
 
 if __name__ == '__main__':
     app.run()
