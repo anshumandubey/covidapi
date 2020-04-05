@@ -72,12 +72,12 @@ inter = setInterval(14400, data)
 @app.route('/')
 def home():
     return "<h2>Covid Data API</h2><br>"+ \
-        "<h4>Get all data: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all</a></h4><br>"+ \
-            "<h4>Get all data for specfic country i.e. India: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?country=india'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?country=india</a></h4><br>"+ \
-                "<h4>Get all data for specfic date i.e. 22/3/2020: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?date=22-3'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/all?date=<i>22-3</i></a></h4><br>"+ \
-                    "<h4>Get last day data for all countries: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday</a></h4><br>"+ \
-                        "<h4>Get last day data for specfic country i.e. India: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday?country=india'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/lastday?country=india</a></h4><br>"+ \
-                            "<h4>Get total cases till today: <a href='http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total'>http://ec2-54-174-192-47.compute-1.amazonaws.com/api/total</a></h4><br>"
+        "<h4>Get all data: <a href='https://coviddataapi.herokuapp.com//api/all'>https://coviddataapi.herokuapp.com//api/all</a></h4><br>"+ \
+            "<h4>Get all data for specfic country i.e. India: <a href='https://coviddataapi.herokuapp.com//api/all?country=india'>https://coviddataapi.herokuapp.com//api/all?country=india</a></h4><br>"+ \
+                "<h4>Get all data for specfic date i.e. 22/3/2020: <a href='https://coviddataapi.herokuapp.com//api/all?date=22-3'>https://coviddataapi.herokuapp.com//api/all?date=<i>22-3</i></a></h4><br>"+ \
+                    "<h4>Get last day data for all countries: <a href='https://coviddataapi.herokuapp.com//api/lastday'>https://coviddataapi.herokuapp.com//api/lastday</a></h4><br>"+ \
+                        "<h4>Get last day data for specfic country i.e. India: <a href='https://coviddataapi.herokuapp.com//api/lastday?country=india'>https://coviddataapi.herokuapp.com//api/lastday?country=india</a></h4><br>"+ \
+                            "<h4>Get total cases till today: <a href='https://coviddataapi.herokuapp.com//api/total'>https://coviddataapi.herokuapp.com//api/total</a></h4><br>"
 
 @app.route('/api/all', methods=['GET'])
 def api_all():
