@@ -46,4 +46,4 @@ A dashboard using this API is made in angular at https://github.com/anshumandube
 ]
 ```
   
-_Data used is porvided by : https://github.com/pomber/covid19_
+_Data used is provided by : https://github.com/pomber/covid19_
